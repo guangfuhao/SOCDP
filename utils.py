@@ -10,7 +10,6 @@ def get_activation(datasets, train_idx, epoch, model_name='', class_num=10, shuf
     test_net = initialize_model(model_name, class_num, model_config, lambda_sparse)
     filename = f"model_{train_idx}_epoch_{epoch}.pt"
     path = get_path(out_dir + "model_weights", middle_size, class_num, model_name, filename)
-    # print(path)
     ensure_dir_exists(path)
     test_net.load_state_dict(torch.load(path))
     test_loader = datasets
@@ -19,7 +18,7 @@ def get_activation(datasets, train_idx, epoch, model_name='', class_num=10, shuf
     indices = torch.randperm(dim)
     perm = torch.randperm(dim)
     permnew = torch.randperm(dim)
-    with torch.no_grad():  # 进行评测的时候网络不更新梯度
+    with torch.no_grad():
         for data in test_loader:
             images, labels = data
             labels_all = torch.cat([labels_all, labels], dim=0)
@@ -45,10 +44,8 @@ def get_activation(datasets, train_idx, epoch, model_name='', class_num=10, shuf
 
 
 def calculate_fid(f_real, f_generated):
-    # 计算均值和协方差
     mu_real, mu_generated = np.mean(f_real, axis=0), np.mean(f_generated, axis=0)
     cov_real, cov_generated = np.cov(f_real, rowvar=False), np.cov(f_generated, rowvar=False)
-    # 计算FID
     mu_diff = mu_real - mu_generated
     cov_mean = (cov_real + cov_generated) / 2
     fid = np.dot(mu_diff, mu_diff) + np.trace(cov_real + cov_generated - 2.0 * np.sqrt(cov_mean))
@@ -67,7 +64,6 @@ def compute_fid_separation_metric(feature_groups):
             fid_matrix[i, j] = fid_value
             fid_matrix[j, i] = fid_value  # FID is symmetric
 
-    # 这里使用平均FID作为示例
     return np.mean(all_fids), fid_matrix
 
 
@@ -92,6 +88,5 @@ def compute_FID(datasets, train_idx, epoch, model_name='', class_num=10, lambda_
     separation_metric2_dot = round(separation_metric2_dot, 2)
     fid_all = [separation_metric1_dot, separation_metric1_number, separation_metric2_dot, separation_metric2_number]
     fid_matrix_all = [separation_matrix1_dot, separation_matrix1_number, separation_matrix2_dot, separation_matrix2_number]
-    # print(separation_metric1_dot, separation_metric1_number, separation_metric2_dot, separation_metric2_number)
-    return fid_all, fid_matrix_all
 
+    return fid_all, fid_matrix_all

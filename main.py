@@ -35,7 +35,6 @@ if __name__ == "__main__":
     print("mini-batch size:{}".format(args.batch_size))
     print("model save path:{}".format(args.save_path))
 
-    # 根据提供的参数构建 model_config
     middle_size = args.ms
     class_num_runs = [x * 10 for x in args.cnr]
     print("model middle size:{}".format(args.ms))

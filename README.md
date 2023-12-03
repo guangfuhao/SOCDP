@@ -18,4 +18,4 @@ python <your_path_here>/codes_py/main.py --d "<your_path_here>/datasets/mnist" -
 
 ## Show results
 
-Use [jupyter_plot.ipynb](https://github.com/guangfuhao/CPM_code/blob/main/jupyter_plot.ipynb "jupyter_plot.ipynb") to get all analysis results in the paper.
+Use jupyter_plot.ipynb to get all analysis results in the paper.

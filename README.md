@@ -1,6 +1,6 @@
 # CpmCode
 
-This is the code of our method for paper **Exploring Role Division in Neural Network Structures**.
+This is the code of our method for paper **Self-organized Context Dependent Processing in Neural Networks**.
 
 ## Training
 
